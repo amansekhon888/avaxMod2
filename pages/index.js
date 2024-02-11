@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import ashokPrasadWalletAbi from "../artifacts/contracts/Assessment.sol/HomeSecuritySystem.json";
 
 export default function HomePage() {
-  const [ashokWallet, setAshokWallet] = useState(undefined);
+  const [amanWallet, setamanWallet] = useState(undefined);
   const [ashokAccount, setAccount] = useState(undefined);
   const [atm, setATM] = useState(undefined);
 
@@ -18,12 +18,12 @@ export default function HomePage() {
 
   const getWalletAddress = async () => {
     if (window.ethereum) {
-      setAshokWallet(window.ethereum);
+      setamanWallet(window.ethereum);
     }
 
-    if (ashokWallet) {
+    if (amanWallet) {
       try {
-        const accounts = await ashokWallet.request({ method: "eth_accounts" });
+        const accounts = await amanWallet.request({ method: "eth_accounts" });
         accoundHandler(accounts);
       } catch (error) {
         console.log("error", error);
@@ -41,12 +41,12 @@ export default function HomePage() {
   };
 
   const connectToMetamask = async () => {
-    if (!ashokWallet) {
+    if (!amanWallet) {
       alert("MetaMask wallet is required to connect");
       return;
     }
 
-    const accounts = await ashokWallet.request({ method: "eth_requestAccounts" });
+    const accounts = await amanWallet.request({ method: "eth_requestAccounts" });
     accoundHandler(accounts);
 
     // once wallet is set, we can get a reference to our deployed contract
@@ -54,7 +54,7 @@ export default function HomePage() {
   };
 
   const getATMContract = () => {
-    const provider = new ethers.providers.Web3Provider(ashokWallet);
+    const provider = new ethers.providers.Web3Provider(amanWallet);
     const signer = provider.getSigner();
     const atmContract = new ethers.Contract(contractAddress, atmABI, signer);
 
